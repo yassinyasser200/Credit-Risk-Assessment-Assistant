@@ -1,0 +1,214 @@
+{
+  "schema_version": "1.0.0",
+  "model_version": "credit-risk-logreg-1.0.0",
+  "trained_at_utc": "2026-11-27T21:04:10+00:00",
+  "artifact": {
+    "path": "ml/artifacts/credit_risk_pipeline.joblib",
+    "sha256": "f1280db0f13078e9d692164fba984db1d631386718495c2917ec67440f12c3fe",
+    "sklearn_version": "1.9.1"
+  },
+  "feature_order": [
+    "duration_months",
+    "credit_amount",
+    "installment_rate_pct",
+    "existing_credits",
+    "checking_account_status",
+    "credit_history",
+    "purpose",
+    "savings_account",
+    "employment_duration",
+    "other_debtors",
+    "property",
+    "other_installment_plans",
+    "housing",
+    "job"
+  ],
+  "required_features": [
+    "duration_months",
+    "credit_amount",
+    "installment_rate_pct",
+    "existing_credits",
+    "checking_account_status",
+    "credit_history",
+    "purpose",
+    "savings_account",
+    "employment_duration",
+    "other_debtors",
+    "property",
+    "other_installment_plans",
+    "housing",
+    "job"
+  ],
+  "features": {
+    "duration_months": {
+      "type": "integer",
+      "required": true,
+      "description": "Requested loan duration",
+      "unit": "months",
+      "min": 1,
+      "max": 120,
+      "training_min": 4,
+      "training_max": 60
+    },
+    "credit_amount": {
+      "type": "integer",
+      "required": true,
+      "description": "Requested credit amount",
+      "unit": "Deutsche Mark (DM, 1970s values)",
+      "min": 1,
+      "max": 100000,
+      "training_min": 276,
+      "training_max": 15945
+    },
+    "installment_rate_pct": {
+      "type": "integer",
+      "required": true,
+      "description": "Installment rate as % of disposable income, coded 1-4 by the dataset (1 = lowest band, 4 = highest band)",
+      "unit": "ordinal code",
+      "min": 1,
+      "max": 4,
+      "training_min": 1,
+      "training_max": 4
+    },
+    "existing_credits": {
+      "type": "integer",
+      "required": true,
+      "description": "Number of existing credits at this bank, coded 1-4 (4 = four or more)",
+      "unit": "count",
+      "min": 1,
+      "max": 4,
+      "training_min": 1,
+      "training_max": 4
+    },
+    "checking_account_status": {
+      "type": "categorical",
+      "required": true,
+      "allowed_values": {
+        "0_to_200_dm": "0 <= checking balance < 200 DM",
+        "200_dm_or_more": "checking balance >= 200 DM / salary assignments for at least 1 year",
+        "negative_balance": "checking balance < 0 DM",
+        "no_checking_account": "no checking account"
+      }
+    },
+    "credit_history": {
+      "type": "categorical",
+      "required": true,
+      "allowed_values": {
+        "all_paid_at_this_bank": "all credits at this bank paid back duly",
+        "critical_or_other_credits": "critical account / other credits existing (not at this bank)",
+        "existing_paid_duly": "existing credits paid back duly till now",
+        "no_credits_or_all_paid": "no credits taken / all credits paid back duly",
+        "past_payment_delay": "delay in paying off in the past"
+      }
+    },
+    "purpose": {
+      "type": "categorical",
+      "required": true,
+      "allowed_values": {
+        "business": "business",
+        "car_new": "car (new)",
+        "car_used": "car (used)",
+        "domestic_appliances": "domestic appliances",
+        "education": "education",
+        "furniture_equipment": "furniture / equipment",
+        "other": "others",
+        "radio_television": "radio / television",
+        "repairs": "repairs",
+        "retraining": "retraining"
+      }
+    },
+    "savings_account": {
+      "type": "categorical",
+      "required": true,
+      "allowed_values": {
+        "1000_dm_or_more": "savings >= 1000 DM",
+        "100_to_500_dm": "100 <= savings < 500 DM",
+        "500_to_1000_dm": "500 <= savings < 1000 DM",
+        "lt_100_dm": "savings < 100 DM",
+        "unknown_or_none": "unknown / no savings account"
+      }
+    },
+    "employment_duration": {
+      "type": "categorical",
+      "required": true,
+      "allowed_values": {
+        "1_to_4_years": "1 <= employed < 4 years",
+        "4_to_7_years": "4 <= employed < 7 years",
+        "7_years_or_more": "employed >= 7 years",
+        "lt_1_year": "employed < 1 year",
+        "unemployed": "unemployed"
+      }
+    },
+    "other_debtors": {
+      "type": "categorical",
+      "required": true,
+      "allowed_values": {
+        "co_applicant": "co-applicant",
+        "guarantor": "guarantor",
+        "none": "no other debtors / guarantors"
+      }
+    },
+    "property": {
+      "type": "categorical",
+      "required": true,
+      "allowed_values": {
+        "car_or_other": "car or other property",
+        "real_estate": "real estate",
+        "savings_agreement_or_life_insurance": "building society savings agreement / life insurance",
+        "unknown_or_none": "unknown / no property"
+      }
+    },
+    "other_installment_plans": {
+      "type": "categorical",
+      "required": true,
+      "allowed_values": {
+        "bank": "other installment plan at a bank",
+        "none": "no other installment plans",
+        "stores": "other installment plan at stores"
+      }
+    },
+    "housing": {
+      "type": "categorical",
+      "required": true,
+      "allowed_values": {
+        "for_free": "for free",
+        "own": "own",
+        "rent": "rent"
+      }
+    },
+    "job": {
+      "type": "categorical",
+      "required": true,
+      "allowed_values": {
+        "management_self_employed_highly_qualified": "management / self-employed / highly qualified employee",
+        "skilled_employee": "skilled employee / official",
+        "unemployed_or_unskilled_nonresident": "unemployed / unskilled - non-resident",
+        "unskilled_resident": "unskilled - resident"
+      }
+    }
+  },
+  "excluded_features": {
+    "personal_status_sex": "Protected attribute (sex) combined with marital status - never used as a model input.",
+    "age_years": "Protected/demographic attribute (age) - never used as a model input.",
+    "foreign_worker": "Protected attribute (national origin / migration status) - never used as a model input.",
+    "num_dependents": "Household composition (family status proxy), not a financial feature - excluded.",
+    "telephone": "Contact-information indicator, not a financial feature - excluded.",
+    "present_residence_years": "Residential tenure, not a financial feature and a proxy for age - excluded."
+  },
+  "target": {
+    "name": "high_risk",
+    "source_column": "credit_class (german.data attribute 21)",
+    "definition": "1 = 'bad' credit risk as rated by the original lender (credit_class == 2); 0 = 'good' (credit_class == 1).",
+    "labels": {
+      "low_risk": "Pattern resembles applicants the original lender rated 'good' credit risk.",
+      "high_risk": "Pattern resembles applicants the original lender rated 'bad' credit risk."
+    },
+    "predicted_probability_meaning": "Model-estimated probability of the high_risk class (not calibrated to any real population).",
+    "decision_threshold_on_p_high_risk": 0.5
+  },
+  "notes": [
+    "All required features must be supplied; the tool never imputes missing values.",
+    "Numeric values outside [min, max] are rejected; values outside [training_min, training_max] are accepted with an extrapolation warning.",
+    "Amounts are in 1970s Deutsche Mark as recorded in the dataset; they are not convertible to present-day currency in any meaningful way."
+  ]
+}

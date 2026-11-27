@@ -1,0 +1,213 @@
+[
+  {
+    "id": "valid_lower_risk",
+    "description": "Synthetic profile with strong financial indicators",
+    "features": {
+      "checking_account_status": "no_checking_account",
+      "duration_months": 12,
+      "credit_history": "critical_or_other_credits",
+      "purpose": "car_used",
+      "credit_amount": 2500,
+      "savings_account": "1000_dm_or_more",
+      "employment_duration": "7_years_or_more",
+      "installment_rate_pct": 2,
+      "other_debtors": "none",
+      "property": "real_estate",
+      "other_installment_plans": "none",
+      "housing": "own",
+      "existing_credits": 2,
+      "job": "skilled_employee"
+    },
+    "expected": {
+      "status": "ok",
+      "risk_label": "low_risk",
+      "predicted_probability": 0.0099
+    }
+  },
+  {
+    "id": "valid_higher_risk",
+    "description": "Synthetic profile with weak financial indicators",
+    "features": {
+      "checking_account_status": "negative_balance",
+      "duration_months": 48,
+      "credit_history": "past_payment_delay",
+      "purpose": "education",
+      "credit_amount": 9000,
+      "savings_account": "lt_100_dm",
+      "employment_duration": "lt_1_year",
+      "installment_rate_pct": 4,
+      "other_debtors": "none",
+      "property": "unknown_or_none",
+      "other_installment_plans": "bank",
+      "housing": "rent",
+      "existing_credits": 1,
+      "job": "unskilled_resident"
+    },
+    "expected": {
+      "status": "ok",
+      "risk_label": "high_risk",
+      "predicted_probability": 0.9971
+    }
+  },
+  {
+    "id": "valid_borderline",
+    "description": "Synthetic middle-of-the-road profile",
+    "features": {
+      "checking_account_status": "0_to_200_dm",
+      "duration_months": 24,
+      "credit_history": "existing_paid_duly",
+      "purpose": "furniture_equipment",
+      "credit_amount": 3500,
+      "savings_account": "100_to_500_dm",
+      "employment_duration": "1_to_4_years",
+      "installment_rate_pct": 3,
+      "other_debtors": "none",
+      "property": "car_or_other",
+      "other_installment_plans": "none",
+      "housing": "own",
+      "existing_credits": 1,
+      "job": "skilled_employee"
+    },
+    "expected": {
+      "status": "ok",
+      "risk_label": "high_risk",
+      "predicted_probability": 0.5841
+    }
+  },
+  {
+    "id": "valid_extrapolation_warning",
+    "description": "Valid but duration (90 months) is beyond the training range",
+    "features": {
+      "checking_account_status": "0_to_200_dm",
+      "duration_months": 90,
+      "credit_history": "existing_paid_duly",
+      "purpose": "furniture_equipment",
+      "credit_amount": 3500,
+      "savings_account": "100_to_500_dm",
+      "employment_duration": "1_to_4_years",
+      "installment_rate_pct": 3,
+      "other_debtors": "none",
+      "property": "car_or_other",
+      "other_installment_plans": "none",
+      "housing": "own",
+      "existing_credits": 1,
+      "job": "skilled_employee"
+    },
+    "expected": {
+      "status": "ok",
+      "risk_label": "high_risk",
+      "predicted_probability": 0.9083
+    }
+  },
+  {
+    "id": "invalid_missing_features",
+    "description": "Partial profile: only 3 of 14 required fields",
+    "features": {
+      "duration_months": 24,
+      "credit_amount": 3500,
+      "purpose": "furniture_equipment"
+    },
+    "expected": {
+      "status": "error",
+      "error_code": "missing_features"
+    }
+  },
+  {
+    "id": "invalid_wrong_type",
+    "description": "credit_amount sent as a string",
+    "features": {
+      "checking_account_status": "0_to_200_dm",
+      "duration_months": 24,
+      "credit_history": "existing_paid_duly",
+      "purpose": "furniture_equipment",
+      "credit_amount": "3500",
+      "savings_account": "100_to_500_dm",
+      "employment_duration": "1_to_4_years",
+      "installment_rate_pct": 3,
+      "other_debtors": "none",
+      "property": "car_or_other",
+      "other_installment_plans": "none",
+      "housing": "own",
+      "existing_credits": 1,
+      "job": "skilled_employee"
+    },
+    "expected": {
+      "status": "error",
+      "error_code": "invalid_features"
+    }
+  },
+  {
+    "id": "invalid_out_of_range",
+    "description": "installment_rate_pct=7 (valid codes are 1-4)",
+    "features": {
+      "checking_account_status": "0_to_200_dm",
+      "duration_months": 24,
+      "credit_history": "existing_paid_duly",
+      "purpose": "furniture_equipment",
+      "credit_amount": 3500,
+      "savings_account": "100_to_500_dm",
+      "employment_duration": "1_to_4_years",
+      "installment_rate_pct": 7,
+      "other_debtors": "none",
+      "property": "car_or_other",
+      "other_installment_plans": "none",
+      "housing": "own",
+      "existing_credits": 1,
+      "job": "skilled_employee"
+    },
+    "expected": {
+      "status": "error",
+      "error_code": "invalid_features"
+    }
+  },
+  {
+    "id": "invalid_unknown_category",
+    "description": "purpose value not in the schema",
+    "features": {
+      "checking_account_status": "0_to_200_dm",
+      "duration_months": 24,
+      "credit_history": "existing_paid_duly",
+      "purpose": "crypto",
+      "credit_amount": 3500,
+      "savings_account": "100_to_500_dm",
+      "employment_duration": "1_to_4_years",
+      "installment_rate_pct": 3,
+      "other_debtors": "none",
+      "property": "car_or_other",
+      "other_installment_plans": "none",
+      "housing": "own",
+      "existing_credits": 1,
+      "job": "skilled_employee"
+    },
+    "expected": {
+      "status": "error",
+      "error_code": "invalid_features"
+    }
+  },
+  {
+    "id": "invalid_protected_field",
+    "description": "Caller also sent age and sex - rejected, never silently used or ignored",
+    "features": {
+      "checking_account_status": "0_to_200_dm",
+      "duration_months": 24,
+      "credit_history": "existing_paid_duly",
+      "purpose": "furniture_equipment",
+      "credit_amount": 3500,
+      "savings_account": "100_to_500_dm",
+      "employment_duration": "1_to_4_years",
+      "installment_rate_pct": 3,
+      "other_debtors": "none",
+      "property": "car_or_other",
+      "other_installment_plans": "none",
+      "housing": "own",
+      "existing_credits": 1,
+      "job": "skilled_employee",
+      "age_years": 35,
+      "personal_status_sex": "male_single"
+    },
+    "expected": {
+      "status": "error",
+      "error_code": "invalid_features"
+    }
+  }
+]
